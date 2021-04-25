@@ -8,8 +8,6 @@
 #
 #   Depends on rtmidi which provides MIDI interface on a range of platforms - only tested on Linux ALSA
 
-import rtmidi
-from time import sleep
 
 #   Class representing the parameters of a FB1010 preset
 class fcb1010_preset:
@@ -372,7 +370,7 @@ class fcb1010:
     def save(self, filename='FCB1010.csv'):
         try:
             with open(filename, 'w') as file:
-                file.write("Global,,Program Change 1,,Program Change 2,,Program Change 3,,Program Change 4,,Program Change 5,,Continuous Controller 1,,,Continuous Controller 2,,,Switch 1,Switch 2,Expression Pedal A,,,,Expression Pedal B,,,,Note,\n")
+                file.write('Global,,Program Change 1,,Program Change 2,,Program Change 3,,Program Change 4,,Program Change 5,,"Continuous\nController 1",,,"Continuous\nController 2",,,Switch 1,Switch 2,"Expression\nPedal A",,,,"Expression\nPedal B",,,,Note,\n')
                 file.write("MIDI Channel,,%d,,%d,,%d,,%d,,%d,,%d,,,%d,,,N/A,N/A,%d,,,,%d,,,,%d,\n" % (
                     self.pc1_midi_channel,
                     self.pc2_midi_channel,
@@ -384,7 +382,7 @@ class fcb1010:
                     self.expA_midi_channel,
                     self.expB_midi_channel,
                     self.note_midi_channel))
-                file.write("Bank,Preset,Enabled,Program,Enabled,Program,Enabled,Program,Enabled,Program,Enabled,Program,Enabled,Controller,Value,Enabled,Controller,Value,Enabled,Enabled,Enabled,Controller,Minimum,Maximum,Enabled,Controller,Minimum,Maximum,Enabled,Value\n")
+                file.write('Bank,Preset,Enabled,Program,Enabled,Program,Enabled,Program,Enabled,Program,Enabled,Program,Enabled,Controller,Value,Enabled,Controller,Value,Enabled,Enabled,Enabled,Controller,Minimum,Maximum,Enabled,Controller,Minimum,Maximum,Enabled,Value\n')
                 for bank in range(10):
                     for offset in range(10):
                         preset = (bank - 1) * 10 + offset - 1
@@ -424,6 +422,11 @@ class fcb1010:
         return True
 
 
+"""    
+## Example usage ##
+from fcb1010 import fcb1010
+import rtmidi
+from time import sleep
 
 #   Handle MIDI input (callback)
 #   event: Tuple with received MIDI data as list of integers, time since last message (float in seconds)
@@ -444,8 +447,8 @@ def send_sysex(fcb):
     midiout.send_message(fcb.get_raw_sysex())
     sleep(2)
     midiin.set_callback(on_midi_in, fcb_rx)
-    
-## Example usage ##
+
+
 
 # Create MIDI input and output ports
 midiout = rtmidi.MidiOut(rtmidi.API_LINUX_ALSA, "riban")
@@ -461,7 +464,7 @@ midiin.ignore_types(sysex=False) # Enable reception of sysex
 midiin.set_callback(on_midi_in, fcb_rx) # fcb_rx will be populated with any received sysex
 
 # Beware that MIDI thru on FCB1010 will mean that sending sysex may result in fcb_rx being updated
-
+"""
 
 """
 # Create a default FCB1010 object and send to device
@@ -478,6 +481,7 @@ if len(result) > 0 and result.lower[0] != 'n':
 # Load fcb_tx from file then send to device
 result = input("Do you want to load configuration from file then send to device Y/n?")
 if len(result) > 0 and result.lower[0] != 'n':
+    fcb_tx = fcb1010()
     fcb_tx.load()
     send_sysex(fcb_tx)
 """
