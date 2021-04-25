@@ -10,3 +10,5 @@ This project has no affiliation with Behringer and sysex structure has been reve
 This code works with standard FCB1010 V2.5 firmware. It has not been tested with other versions of the standard FCB1010 firmware nor any third party firmware.
 
 The main purpose of this software is to allow simple editing, backup and restore of FCB1010 configuration.
+
+In the repository is an Open Office Document format spreadsheet configured to allow filtering and editing of the data. Save spreadsheet as csv to create a file that can be used read and sent to FCB1010.
