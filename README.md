@@ -1,5 +1,5 @@
 # fcb1010
-Behringer FBC1010 pedalboard sysex interface
+Behringer FCB1010 pedalboard sysex interface
 
 This Python code can send and receive MIDI system exclusive messages bewteen a computer and Behringer FCB1010 pedalboard. Global settings for each parameter's MIDI channel are exchanged as well as the parameters for each of the 100 (10 banks of 10) presets. Global data is sent from the FCB1010 and may be viewed in the Python class but only MIDI channel data is set in the FCB1010 when sysex is received.
 
