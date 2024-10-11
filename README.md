@@ -54,7 +54,7 @@ midiin.ignore_types(sysex=False) # Enable reception of sysex
 midiin.set_callback(on_midi_in, fcb_rx) # fcb_rx will be populated with any received sysex
 ```
 
-Sending sysex fro FCB1010 will populate the fcb1010 object called fcb_rx. Beware that MIDI thru on FCB1010 will mean that sending sysex may result in fcb_rx being updated
+Sending sysex from FCB1010 will populate the fcb1010 object called fcb_rx. Beware that MIDI thru on FCB1010 will mean that sending sysex may result in fcb_rx being updated
 
 Save fcb_rx to file
 ```
